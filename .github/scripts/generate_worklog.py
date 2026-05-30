@@ -3,6 +3,9 @@ import os
 import subprocess
 from datetime import datetime
 from google import genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_today_git_diff():
