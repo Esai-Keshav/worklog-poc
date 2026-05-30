@@ -31,16 +31,17 @@ def generate_worklog_from_diff(diff_text):
 
     prompt = f"""
     You are an expert Technical Project Manager. Analyze this raw `git diff` from the last 24 hours.
-    Generate an Executive Status Summary based ONLY on these changes.
     
-    CRITICAL CONSTRAINT: The final output must be EXACTLY a 5-line Markdown list. No intro, no outro, no extra lines.
-    
+    CRITICAL STRUCTURE CONSTRAINT:
+    Your output must start exactly with the heading: ## WorkLog for {datetime.now().strftime('%Y-%m-%d')}
+    Directly below that heading, output exactly a 5-line Markdown list detailing the status updates. No introduction text, no conversational filler, and no outro.
+
     Guidelines for the 5 lines:
-    - Line 1: Date and top-line project health milestone achieved.
-    - Line 2: Core backend feature/API update and its deployment readiness status.
-    - Line 3: Core AI/Frontend system progression or critical adjustment.
-    - Line 4: Primary bug fix, database stabilization, or performance win.
-    - Line 5: Business impact summary or what this unblocks for next steps.
+    - Line 1: Summary of top-line project status or milestones reached.
+    - Line 2: Backend feature, endpoint development, or integration progress.
+    - Line 3: AI pipeline adjustments, frontend features, or system workflow updates.
+    - Line 4: Infrastructure optimization, database fixes, or critical bug resolution.
+    - Line 5: Operational impact statement explaining what these changes unblock next.
 
     Here is the raw git diff:
     \"\"\"
