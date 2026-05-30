@@ -30,15 +30,17 @@ def generate_worklog_from_diff(diff_text):
     client = genai.Client()
 
     prompt = f"""
-    You are an elite Technical Project Manager. Analyze this raw `git diff` containing code changes made over the last 24 hours.
-    Generate a high-level, clean, professional Executive Status Summary in Markdown format based on these changes.
+    You are an expert Technical Project Manager. Analyze this raw `git diff` from the last 24 hours.
+    Generate an Executive Status Summary based ONLY on these changes.
     
-    Guidelines:
-    - Keep it concise, high-level, and scannable for non-technical stakeholders.
-    - Focus on *what* business features were advanced, completed, or fixed, and *why* it matters (the business impact).
-    - Group items by operational features, milestones, or work streams (e.g., "Authentication System", "Payment Processing").
-    - Do not paste raw code patterns or focus heavily on internal function syntax. Translate the diff into clear deliverables.
-    - Format with a clear heading for today's date: {datetime.now().strftime('%Y-%m-%d')}.
+    CRITICAL CONSTRAINT: The final output must be EXACTLY a 5-line Markdown list. No intro, no outro, no extra lines.
+    
+    Guidelines for the 5 lines:
+    - Line 1: Date and top-line project health milestone achieved.
+    - Line 2: Core backend feature/API update and its deployment readiness status.
+    - Line 3: Core AI/Frontend system progression or critical adjustment.
+    - Line 4: Primary bug fix, database stabilization, or performance win.
+    - Line 5: Business impact summary or what this unblocks for next steps.
 
     Here is the raw git diff:
     \"\"\"
