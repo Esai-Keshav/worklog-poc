@@ -53,6 +53,21 @@ if __name__ == "__main__":
         print("Error: GEMINI_API_KEY secret is missing.")
         exit(1)
 
+    print("Checking environment variables...")
+    if "GEMINI_API_KEY" in os.environ:
+        # Check if it exists but is accidentally empty/blank
+        key_length = len(os.environ["GEMINI_API_KEY"])
+        print(
+            f"✅ GEMINI_API_KEY is PRESENT in the environment. String length: {key_length} characters."
+        )
+    else:
+        print("❌ GEMINI_API_KEY is COMPLETELY MISSING from the environment.")
+    # ----------------------
+
+    if "GEMINI_API_KEY" not in os.environ or not os.environ["GEMINI_API_KEY"].strip():
+        print("Error: GEMINI_API_KEY secret is missing or empty. Exiting script.")
+        exit(1)
+
     diff_data = get_today_git_diff()
     worklog = generate_worklog_from_diff(diff_data)
 
