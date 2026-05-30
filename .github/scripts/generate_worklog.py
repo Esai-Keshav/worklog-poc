@@ -14,6 +14,7 @@ def get_today_git_diff():
         # Fetch commits from the last 24 hours
         cmd = ["git", "log", "--since=24.hours.ago", "-p"]
         result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print(result.stdout)
         return result.stdout
     except subprocess.CalledProcessError as e:
         print(f"Error running git command: {e}")
@@ -27,6 +28,7 @@ def generate_worklog_from_diff(diff_text):
 
     # Initialize Gemini Client (automatically uses GEMINI_API_KEY env variable)
     client = genai.Client()
+    print(diff_text)
 
     prompt = f"""
     You are an expert technical manager. Analyze this raw `git diff` containing code changes made over the last 24 hours.
@@ -45,6 +47,7 @@ def generate_worklog_from_diff(diff_text):
     """
 
     response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+    print(response.text)
     return response.text
 
 
