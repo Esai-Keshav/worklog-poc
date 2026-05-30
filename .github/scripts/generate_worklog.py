@@ -30,14 +30,15 @@ def generate_worklog_from_diff(diff_text):
     client = genai.Client()
 
     prompt = f"""
-    You are an expert technical manager. Analyze this raw `git diff` containing code changes made over the last 24 hours.
-    Generate a clean, professional engineering daily worklog in Markdown format based ONLY on these changes.
+    You are an elite Technical Project Manager. Analyze this raw `git diff` containing code changes made over the last 24 hours.
+    Generate a high-level, clean, professional Executive Status Summary in Markdown format based on these changes.
     
     Guidelines:
-    - Group items logically by feature or module.
-    - Be specific: name exact functions, endpoints, or files modified.
+    - Keep it concise, high-level, and scannable for non-technical stakeholders.
+    - Focus on *what* business features were advanced, completed, or fixed, and *why* it matters (the business impact).
+    - Group items by operational features, milestones, or work streams (e.g., "Authentication System", "Payment Processing").
+    - Do not paste raw code patterns or focus heavily on internal function syntax. Translate the diff into clear deliverables.
     - Format with a clear heading for today's date: {datetime.now().strftime('%Y-%m-%d')}.
-    - Do not output generic summaries. Explain the code logic changes.
 
     Here is the raw git diff:
     \"\"\"
@@ -61,6 +62,6 @@ if __name__ == "__main__":
 
     if worklog:
         # Append the log to a central WORKLOG.md file
-        with open("WORKLOG.md", "a") as f:
+        with open("README.md", "a") as f:
             f.write("\n\n" + worklog)
         print("Worklog successfully generated and appended.")
