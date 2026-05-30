@@ -61,6 +61,6 @@ if __name__ == "__main__":
 
     if worklog:
         # Append the log to a central WORKLOG.md file
-        with open("README.md", "a") as f:
+        with open("WORKLOG.md", "a") as f:
             f.write("\n\n" + worklog)
         print("Worklog successfully generated and appended.")
